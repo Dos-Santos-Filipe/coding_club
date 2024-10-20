@@ -9,11 +9,13 @@ function secretSanta(
 ): { giver: string; receiver: string }[] {
   const shuffledList = shuffleParticipants(participants);
 
+  let giver: string;
+  let receiver: string;
   const result: { giver: string; receiver: string }[] = [];
 
   for (let i = 0; i < shuffledList.length; i++) {
-    const giver = shuffledList[i];
-    const receiver = shuffledList[(i + 1) % shuffledList.length];
+    giver = shuffledList[i];
+    receiver = shuffledList[(i + 1) % shuffledList.length];
     result.push({ giver, receiver });
   }
 
