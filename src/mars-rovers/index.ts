@@ -1,3 +1,5 @@
+const directions = ["N", "E", "S", "W"];
+
 type Rover = {
   x: number;
   y: number;
@@ -59,41 +61,16 @@ const moveRover = (plateau: { x: number; y: number }, rovers: Rover[]) => {
   });
 
   console.log(rovers); // preciso retornar um array ou obj com as posições finais dos rovers
-  
 };
 
 const moveR = (rover: Rover) => {
-  switch (rover.direction) {
-    case "N":
-      rover.direction = "E";
-      break;
-    case "E":
-      rover.direction = "S";
-      break;
-    case "S":
-      rover.direction = "W";
-      break;
-    case "W":
-      rover.direction = "N";
-      break;
-  }
+  const directionIndex = directions.indexOf(rover.direction);
+  rover.direction = directions[(directionIndex + 1) % 4];
 };
 
 const moveL = (rover: Rover) => {
-  switch (rover.direction) {
-    case "N":
-      rover.direction = "W";
-      break;
-    case "W":
-      rover.direction = "S";
-      break;
-    case "S":
-      rover.direction = "E";
-      break;
-    case "E":
-      rover.direction = "N";
-      break;
-  }
+  const directionIndex = directions.indexOf(rover.direction);
+  rover.direction = directions[(directionIndex + 3) % 4];
 };
 
 const main = (input: string[]) => {
