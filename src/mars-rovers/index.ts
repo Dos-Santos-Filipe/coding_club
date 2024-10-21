@@ -27,10 +27,15 @@ const getRovers = (input: string[]) => {
 };
 
 const main = (input: string[]) => {
-  const plateau = plateauSize(input);
-  const rovers = getRovers(input);
+  const plateau = plateauSize(input); // obj com as dimensões do tabuleiro
+  const rovers = getRovers(input); // array de obj de type Rover
 
-  
+  for (let i = 0; i < rovers.length; i++) {
+    const { x, y, direction } = rovers[i];
+    console.log(`Rover ${i + 1}: ${x} ${y} ${direction}`);
+  }
+
+
 
   console.log(`The size of the plateau: ${plateau.x} x ${plateau.y}.`);
 };
