@@ -54,13 +54,13 @@ const moveRover = (plateau: { x: number; y: number }, rovers: Rover[]) => {
           moveL(rover);
           break;
         default:
-          //moveM(plateauLimits, rover);
+          moveM(plateauLimits, rover);
           break;
       }
     });
   });
 
-  console.log(rovers); // preciso retornar um array ou obj com as posições finais dos rovers
+  // preciso retornar um array ou obj com as posições finais dos rovers
 };
 
 const moveR = (rover: Rover) => {
@@ -71,6 +71,31 @@ const moveR = (rover: Rover) => {
 const moveL = (rover: Rover) => {
   const directionIndex = directions.indexOf(rover.direction);
   rover.direction = directions[(directionIndex + 3) % 4];
+};
+
+const moveM = (plateauLimits: { x: number; y: number }, rover: Rover) => {
+  switch (rover.direction) {
+    case "N":
+      if (rover.y < plateauLimits.y) {
+        rover.y++;
+      }
+      break;
+    case "E":
+      if (rover.x < plateauLimits.x) {
+        rover.x++;
+      }
+      break;
+    case "S":
+      if (rover.y > 0) {
+        rover.y--;
+      }
+      break;
+    case "W":
+      if (rover.x > 0) {
+        rover.x--;
+      }
+      break;
+  }
 };
 
 const main = (input: string[]) => {
