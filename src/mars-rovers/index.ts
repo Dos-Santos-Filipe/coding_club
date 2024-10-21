@@ -2,6 +2,7 @@ type Rover = {
   x: number;
   y: number;
   direction: string;
+  command?: string;
 };
 
 const plateauSize = (input: string[]) => {
@@ -23,7 +24,18 @@ const getRovers = (input: string[]) => {
     });
   }
 
+  getCommand(input, rovers);
+
   return rovers;
+};
+
+const getCommand = (input: string[], rovers: Rover[]) => {
+  for (let i = 2, j = 0; i < input.length; i += 2, j++) {
+    const command = input[i];
+    if (rovers[j]) {
+      rovers[j].command = command;
+    }
+  }
 };
 
 const main = (input: string[]) => {
@@ -31,11 +43,9 @@ const main = (input: string[]) => {
   const rovers = getRovers(input); // array de obj de type Rover
 
   for (let i = 0; i < rovers.length; i++) {
-    const { x, y, direction } = rovers[i];
-    console.log(`Rover ${i + 1}: ${x} ${y} ${direction}`);
+    const { x, y, direction, command } = rovers[i];
+    console.log(`Rover ${i + 1}: ${x} ${y} ${direction} ${command}`);
   }
-
-
 
   console.log(`The size of the plateau: ${plateau.x} x ${plateau.y}.`);
 };
