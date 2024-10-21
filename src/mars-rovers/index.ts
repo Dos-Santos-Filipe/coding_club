@@ -42,6 +42,7 @@ const getCommand = (input: string[], rovers: Rover[]) => {
 
 const moveRover = (plateau: { x: number; y: number }, rovers: Rover[]) => {
   const plateauLimits = plateau;
+  const finalPosition: Rover[] = [];
 
   rovers.forEach((rover) => {
     const command = rover.command;
@@ -58,9 +59,10 @@ const moveRover = (plateau: { x: number; y: number }, rovers: Rover[]) => {
           break;
       }
     });
+    finalPosition.push({ ...rover });
   });
 
-  // preciso retornar um array ou obj com as posições finais dos rovers
+  return finalPosition;
 };
 
 const moveR = (rover: Rover) => {
@@ -99,17 +101,14 @@ const moveM = (plateauLimits: { x: number; y: number }, rover: Rover) => {
 };
 
 const main = (input: string[]) => {
-  const plateau = plateauSize(input); // obj com as dimensões do tabuleiro
-  const rovers = getRovers(input); // array de obj de type Rover
+  const plateau = plateauSize(input);
+  const rovers = getRovers(input);
+  const roversFinalPositions = moveRover(plateau, rovers);
 
-  // const finalPosition = moveRover(plateau, rovers);
-
-  for (let i = 0; i < rovers.length; i++) {
-    const { x, y, direction, command } = rovers[i];
-    console.log(`Rover ${i + 1}: ${x} ${y} ${direction} ${command}`);
-  } // posso usar esse loop para chamar a função de movimentação dos rovers e talvez encapsular isso em uma função e remover a lógica da main.
-
-  console.log(`The size of the plateau: ${plateau.x} x ${plateau.y}.`);
+  for (let i = 0; i < roversFinalPositions.length; i++) {
+    const { x, y, direction } = roversFinalPositions[i];
+    console.log(`Rover: ${i + 1}: ${x} ${y} ${direction}`);
+  }
 };
 
 const input = ["5 5", "1 2 N", "LMLMLMLMM", "3 3 E", "MMRMMRMRRM"];
