@@ -1,17 +1,40 @@
+type Rover = {
+  x: number;
+  y: number;
+  direction: string;
+};
 
-const plateauSize = (input: string[]) => (input.length < 3 ? "Invalid Input. The input must have at least 3 elements: plateau size and start position and commands of at least one rover!" : input[0].split(" "));
+const plateauSize = (input: string[]) => {
+  const sizeArray = input[0].split(" ").map(Number);
+  return {
+    x: sizeArray[0],
+    y: sizeArray[1],
+  };
+};
 
+const getRovers = (input: string[]) => {
+  const rovers: Rover[] = [];
+  for (let i = 1; i < input.length; i += 2) {
+    const [x, y, direction] = input[i].split(" ");
+    rovers.push({
+      x: Number(x),
+      y: Number(y),
+      direction: direction,
+    });
+  }
+
+  return rovers;
+};
 
 const main = (input: string[]) => {
-    const plateau = plateauSize(input);
+  const plateau = plateauSize(input);
+  const rovers = getRovers(input);
 
+  
 
+  console.log(`The size of the plateau: ${plateau.x} x ${plateau.y}.`);
+};
 
-
-
-    console.log(plateau);
-}
-
-const input = ["5 5", "1 2 N", "LMLMLMLMM", "3 3 E", "MMRMMRMRRM"]; 
+const input = ["5 5", "1 2 N", "LMLMLMLMM", "3 3 E", "MMRMMRMRRM"];
 
 main(input);
