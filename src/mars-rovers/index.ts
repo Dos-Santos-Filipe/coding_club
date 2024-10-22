@@ -107,7 +107,7 @@ const main = (input: string[]) => {
 
   for (let i = 0; i < roversFinalPositions.length; i++) {
     const { x, y, direction } = roversFinalPositions[i];
-    console.log(`Rover: ${i + 1}: ${x} ${y} ${direction}`);
+    console.log(`Rover ${i + 1}: ${x} ${y} ${direction}`);
   }
 };
 
