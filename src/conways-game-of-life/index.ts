@@ -15,6 +15,17 @@ grid de 5x5 inicialmente, mas pretendo fazer algo dinâmico e escalável. Testar
 loop aninhado para criar o grid, considerando que é uma matriz.
  */
 
+const directions = {
+  NW: [-1, -1],
+  N: [-1, 0],
+  NE: [-1, 1],
+  W: [0, -1],
+  E: [0, 1],
+  SW: [1, -1],
+  S: [1, 0],
+  SE: [1, 1],
+};
+
 const createGrid = (rows: number, columns: number): number[][] => {
   const grid: number[][] = [];
 
@@ -26,6 +37,35 @@ const createGrid = (rows: number, columns: number): number[][] => {
   }
 
   return grid;
+};
+
+const verifyNeighbours = (grid: number[][], i: number, j: number): number => {
+  let liveNeighbours = 0;
+
+  for (const direction in directions) {
+    const [row, column] = directions[direction as keyof typeof directions];
+    const neighbourRow = i + row;
+    const neighbourColumn = j + column;
+    if (
+      neighbourRow >= 0 &&
+      neighbourRow < grid.length &&
+      neighbourColumn >= 0 &&
+      neighbourColumn < grid[1].length
+    ) {
+      liveNeighbours += grid[neighbourRow][neighbourColumn];
+    }
+  }
+  return liveNeighbours;
+};
+
+const gameOfLife = (grid: number[][]): void => {
+  for (let i = 0; i < grid.length; i++) {
+    for (let j = 0; j < grid[1].length; j++) {
+      const liveNeighbours = verifyNeighbours(grid, i, j);
+
+      
+    }
+  }
 };
 
 const main = (): void => {
