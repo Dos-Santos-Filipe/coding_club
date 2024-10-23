@@ -6,10 +6,10 @@
     overPopulation = liveNeighbours > 3; 
 
  * Any live cell with two or three live neighbours lives, unchanged, to the next generation:
-    survival = liveNeighbours = 3 || liveNeighbours = 2;
+    survival = liveNeighbours === 3 || liveNeighbours === 2;
 
  * Any dead cell with exactly three live neighbours will come to life:
-    revive = liveNeighbours = 3;  
+    revive = liveNeighbours === 3;  
 
 grid de 5x5 inicialmente, mas pretendo fazer algo dinâmico e escalável. Testar 10 x 10 futuramente.
 loop aninhado para criar o grid, considerando que é uma matriz.
@@ -58,12 +58,19 @@ const verifyNeighbours = (grid: number[][], i: number, j: number): number => {
   return liveNeighbours;
 };
 
+const rulesOfLife = (cellStatus: number, liveNeighbours: number): number => {
+  if (cellStatus === 1 && (liveNeighbours < 2 || liveNeighbours > 3)) {
+    return 0; // dead - unerpopulation or overpopulation
+  } else if (cellStatus === 0 && liveNeighbours === 3) {
+    return 1; // revive
+  }
+  return cellStatus;
+};
+
 const gameOfLife = (grid: number[][]): void => {
   for (let i = 0; i < grid.length; i++) {
     for (let j = 0; j < grid[1].length; j++) {
       const liveNeighbours = verifyNeighbours(grid, i, j);
-
-      
     }
   }
 };
