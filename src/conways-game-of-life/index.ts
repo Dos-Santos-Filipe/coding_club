@@ -13,20 +13,25 @@
 
 grid de 5x5 inicialmente, mas pretendo fazer algo dinâmico e escalável. Testar 10 x 10 futuramente.
 loop aninhado para criar o grid, considerando que é uma matriz.
- */ 
+ */
 
 const createGrid = (rows: number, columns: number): number[][] => {
-    const grid: number[][] = [];
+  const grid: number[][] = [];
 
-    for (let i = 0; i < rows; i++) {
-        for (let j = 0; j < columns; j++) {
-
-        }
+  for (let i = 0; i < rows; i++) {
+    grid[i] = [];
+    for (let j = 0; j < columns; j++) {
+      grid[i][j] = Math.round(Math.random());
     }
+  }
 
-    return grid;
-}
+  return grid;
+};
 
 const main = (): void => {
-    const initialGrid = createGrid(5, 5); // valor fixo e arbitrário, futuramente receber o input do usuário.
-}
+  const initialGrid = createGrid(5, 5); // valor fixo e arbitrário, futuramente receber o input do usuário.
+
+  console.log(initialGrid);
+};
+
+main();
