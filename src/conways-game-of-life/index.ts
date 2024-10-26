@@ -1,19 +1,4 @@
-/**
- * Any live cell with fewer than two live neighbours dies (referred to as underpopulation):
-    underPopulation = liveNeighbours < 2; 
-
- * Any live cell with more than three live neighbours dies (referred to as overpopulation):
-    overPopulation = liveNeighbours > 3; 
-
- * Any live cell with two or three live neighbours lives, unchanged, to the next generation:
-    survival = liveNeighbours === 3 || liveNeighbours === 2;
-
- * Any dead cell with exactly three live neighbours will come to life:
-    revive = liveNeighbours === 3;  
-
-grid de 5x5 inicialmente, mas pretendo fazer algo dinâmico e escalável. Testar 10 x 10 futuramente.
-loop aninhado para criar o grid, considerando que é uma matriz.
- */
+const gridSize: [number, number] = [10, 10];
 
 const directions = {
   NW: [-1, -1],
@@ -48,9 +33,9 @@ const verifyNeighbours = (grid: number[][], i: number, j: number): number => {
     const neighbourColumn = j + column;
     if (
       neighbourRow >= 0 &&
-      neighbourRow < grid.length &&
+      neighbourRow < gridSize[0] &&
       neighbourColumn >= 0 &&
-      neighbourColumn < grid[1].length
+      neighbourColumn < gridSize[1]
     ) {
       liveNeighbours += grid[neighbourRow][neighbourColumn];
     }
@@ -67,18 +52,36 @@ const rulesOfLife = (cellStatus: number, liveNeighbours: number): number => {
   return cellStatus;
 };
 
-const gameOfLife = (grid: number[][]): void => {
-  for (let i = 0; i < grid.length; i++) {
-    for (let j = 0; j < grid[1].length; j++) {
+const gameOfLife = (grid: number[][]): number[][] => {
+  const newGeneration = grid.map((row) => [...row]);
+  for (let i = 0; i < gridSize[0]; i++) {
+    for (let j = 0; j < gridSize[1]; j++) {
       const liveNeighbours = verifyNeighbours(grid, i, j);
+      newGeneration[i][j] = rulesOfLife(grid[i][j], liveNeighbours);
     }
+  }
+  return newGeneration;
+};
+
+const printGrid = (grid: number[][]): void => {
+  for (let row of grid) {
+    console.log(row.join(" "));
   }
 };
 
 const main = (): void => {
-  const initialGrid = createGrid(5, 5); // valor fixo e arbitrário, futuramente receber o input do usuário.
+  let grid: number[][] = createGrid(gridSize[0], gridSize[1]);
 
-  console.log(initialGrid);
+  console.log(`Initial Generation:`);
+  printGrid(grid);
+
+  let generation = 1;
+  setInterval(() => {
+    grid = gameOfLife(grid);
+    generation++;
+    console.log(`Generation ${generation}:`);
+    printGrid(grid);
+  }, 1000);
 };
 
 main();
