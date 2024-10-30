@@ -8,14 +8,11 @@ function shuffleParticipants(participants: string[]): string[] {
 
 function secretSanta(participants: string[]): SecretSantaPair[] {
   const shuffledList = shuffleParticipants(participants);
-
-  let giver: string;
-  let receiver: string;
   const result = [];
 
   for (let i = 0; i < shuffledList.length; i++) {
-    giver = shuffledList[i];
-    receiver = shuffledList[(i + 1) % shuffledList.length];
+    let giver = shuffledList[i];
+    let receiver = shuffledList[(i + 1) % shuffledList.length];
     result.push({ giver, receiver });
   }
 
