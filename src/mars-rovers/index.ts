@@ -40,7 +40,7 @@ const getCommand = (input: string[], rovers: Rover[]) => {
   }
 };
 
-const moveRover = (plateau: { x: number; y: number }, rovers: Rover[]) => {
+const moveRovers = (plateau: { x: number; y: number }, rovers: Rover[]) => {
   const plateauLimits = plateau;
   const finalPosition: Rover[] = [];
 
@@ -49,13 +49,13 @@ const moveRover = (plateau: { x: number; y: number }, rovers: Rover[]) => {
     command?.forEach((instruction) => {
       switch (instruction) {
         case "R":
-          moveR(rover);
+          rotateR(rover);
           break;
         case "L":
-          moveL(rover);
+          rotateL(rover);
           break;
         default:
-          moveM(plateauLimits, rover);
+          moveForward(plateauLimits, rover);
           break;
       }
     });
@@ -65,17 +65,17 @@ const moveRover = (plateau: { x: number; y: number }, rovers: Rover[]) => {
   return finalPosition;
 };
 
-const moveR = (rover: Rover) => {
+const rotateR = (rover: Rover) => {
   const directionIndex = directions.indexOf(rover.direction);
-  rover.direction = directions[(directionIndex + 1) % 4];
+  rover.direction = directions[(directionIndex + 1) % directions.length];
 };
 
-const moveL = (rover: Rover) => {
+const rotateL = (rover: Rover) => {
   const directionIndex = directions.indexOf(rover.direction);
-  rover.direction = directions[(directionIndex + 3) % 4];
+  rover.direction = directions[(directionIndex + 3) % directions.length];
 };
 
-const moveM = (plateauLimits: { x: number; y: number }, rover: Rover) => {
+const moveForward = (plateauLimits: { x: number; y: number }, rover: Rover) => {
   switch (rover.direction) {
     case "N":
       if (rover.y < plateauLimits.y) {
@@ -103,7 +103,7 @@ const moveM = (plateauLimits: { x: number; y: number }, rover: Rover) => {
 const main = (input: string[]) => {
   const plateau = plateauSize(input);
   const rovers = getRovers(input);
-  const roversFinalPositions = moveRover(plateau, rovers);
+  const roversFinalPositions = moveRovers(plateau, rovers);
 
   for (let i = 0; i < roversFinalPositions.length; i++) {
     const { x, y, direction } = roversFinalPositions[i];
