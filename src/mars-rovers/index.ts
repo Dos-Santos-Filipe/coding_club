@@ -45,8 +45,7 @@ const moveRovers = (plateau: { x: number; y: number }, rovers: Rover[]) => {
   const finalPosition: Rover[] = [];
 
   rovers.forEach((rover) => {
-    const command = rover.command;
-    command?.forEach((instruction) => {
+    rover.command?.forEach((instruction) => {
       switch (instruction) {
         case "R":
           rotateR(rover);
