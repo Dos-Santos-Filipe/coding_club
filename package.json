@@ -5,6 +5,6 @@
     "typescript": "^5.6.3"
   },
   "scripts": {
-    "dev": "ts-node src/secret_santa/index.ts"
+    "dev": "ts-node src/secret-santa/index.ts"
   }
 }
