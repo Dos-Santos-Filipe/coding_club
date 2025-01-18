@@ -1,4 +1,4 @@
-type SecretSantaPair = { giver: string; receiver: string };
+const participants = ["Andre", "Brad", "Claudia", "Denise", "Emily", "Fabby"];
 
 function shuffleParticipants(participants: string[]): string[] {
   const shuffledParticipants = [...participants];
@@ -6,7 +6,7 @@ function shuffleParticipants(participants: string[]): string[] {
   return shuffledParticipants.sort(() => Math.random() - 0.5);
 }
 
-function secretSanta(participants: string[]): SecretSantaPair[] {
+function secretSanta(participants: string[]): void{
   const shuffledList = shuffleParticipants(participants);
   const result = [];
 
@@ -16,9 +16,7 @@ function secretSanta(participants: string[]): SecretSantaPair[] {
     result.push({ giver, receiver });
   }
 
-  return result;
+  console.log(result);
 }
 
-const participants = ["Andre", "Brad", "Claudia", "Denise", "Emily", "Fabby"];
-
-console.log(secretSanta(participants));
+secretSanta(participants);
